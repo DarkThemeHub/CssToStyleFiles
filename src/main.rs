@@ -9,8 +9,8 @@ use clap::{App, Arg};
 use yaml_rust::{Yaml, YamlLoader};
 
 fn main() -> std::io::Result<()> {
-    let matches = App::new("Theme file gen")
-        .version("0.1.0")
+    let matches = App::new("Css To Style File")
+        .version("1.0.0")
         .author("Snazzie")
         .about("Generates style files from css")
         .arg(
@@ -116,7 +116,7 @@ fn main() -> std::io::Result<()> {
 
     create_dir_all(&output_path)?;
 
-    File::create(output_path.join("github.user.styl"))?.write_all(
+    File::create(output_path.join(theme_name.to_owned() + ".user.styl"))?.write_all(
         templates::new::stylus(
             theme_css.to_owned(),
             theme_name.to_owned(),
@@ -132,7 +132,7 @@ fn main() -> std::io::Result<()> {
         .as_bytes(),
     )?;
 
-    File::create(output_path.join("github.user.js"))?.write_all(
+    File::create(output_path.join(theme_name.to_owned() + ".user.js"))?.write_all(
         templates::new::user_script(
             theme_css.to_owned(),
             theme_name.to_owned(),
