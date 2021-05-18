@@ -17,7 +17,7 @@ FLAGS:
     -V, --version    Prints version information
 
 OPTIONS:
-    -o, --output <Output>    override default output pathh [default: ./Output]
+    -o, --output <Output>    override default output path [default: ./Output]
 
 ARGS:
     <Input>     Input css path
