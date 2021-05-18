@@ -116,23 +116,24 @@ fn main() -> std::io::Result<()> {
 
     create_dir_all(&output_path)?;
 
-    File::create(output_path.join(theme_name.to_owned() + ".user.styl"))?.write_all(
-        templates::new::stylus(
-            theme_css.to_owned(),
-            theme_name.to_owned(),
-            namespace.to_owned(),
-            version.to_owned(),
-            description.to_owned(),
-            author.to_owned(),
-            homepage_url.to_owned(),
-            support_url.to_owned(),
-            update_url.to_owned(),
-            url_regex.to_owned(),
-        )
-        .as_bytes(),
-    )?;
+    File::create(output_path.join(theme_name.replace("\t", "").to_owned() + ".user.styl"))?
+        .write_all(
+            templates::new::stylus(
+                theme_css.to_owned(),
+                theme_name.to_owned(),
+                namespace.to_owned(),
+                version.to_owned(),
+                description.to_owned(),
+                author.to_owned(),
+                homepage_url.to_owned(),
+                support_url.to_owned(),
+                update_url.to_owned(),
+                url_regex.to_owned(),
+            )
+            .as_bytes(),
+        )?;
 
-    File::create(output_path.join(theme_name.to_owned() + ".user.js"))?.write_all(
+    File::create(output_path.join(theme_name.replace("\t", "") + ".user.js"))?.write_all(
         templates::new::user_script(
             theme_css.to_owned(),
             theme_name.to_owned(),
