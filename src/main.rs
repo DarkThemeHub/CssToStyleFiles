@@ -1,6 +1,6 @@
 mod templates;
 use std::{
-    fs::{self, create_dir_all, remove_dir_all, File},
+    fs::{self, create_dir_all, File},
     io::{Read, Write},
     path::{Path, PathBuf},
 };
@@ -19,24 +19,24 @@ fn main() -> std::io::Result<()> {
                 .long("input")
                 .index(1)
                 .required(true)
-                .value_name("FILE")
                 .takes_value(true)
                 .help("Input css path"),
         )
         .arg(
             Arg::with_name("Output")
                 .short("o")
+                .long("output")
                 .required(false)
-                .help("Output path"),
+                .default_value("./Output")
+                .help("Overrides default output path"),
         )
         .arg(
             Arg::with_name("Config")
                 .short("c")
                 .long("config")
-                .value_name("FILE")
                 .index(2)
                 .required(true)
-                .help("Config file"),
+                .help("Path to config file"),
         )
         .get_matches();
 
@@ -104,8 +104,7 @@ fn main() -> std::io::Result<()> {
         }
     }
 
-    let output_path: PathBuf =
-        Path::new(&matches.value_of("Output").unwrap_or("./Output")).to_owned();
+    let output_path: PathBuf = Path::new(&matches.value_of("Output").unwrap()).to_owned();
     println!(
         "{}",
         &output_path
@@ -125,7 +124,7 @@ fn main() -> std::io::Result<()> {
             version.to_owned(),
             description.to_owned(),
             author.to_owned(),
-            url_regex.to_owned(),
+            homepage_url.to_owned(),
             support_url.to_owned(),
             update_url.to_owned(),
             url_regex.to_owned(),
@@ -141,7 +140,7 @@ fn main() -> std::io::Result<()> {
             version.to_owned(),
             description.to_owned(),
             author.to_owned(),
-            url_regex.to_owned(),
+            homepage_url.to_owned(),
             support_url.to_owned(),
             update_url.to_owned(),
             url_regex.to_owned(),

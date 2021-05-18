@@ -1,6 +1,6 @@
 [package]
-name = "file_gen"
-version = "0.1.0"
+name = "CssToStyleFiles"
+version = "1.0.0"
 authors = ["Aaron <cooper.a.m@hotmail.com>"]
 edition = "2018"
 
