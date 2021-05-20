@@ -4,7 +4,7 @@
 
 ## Supported file outputs
 * stylus
-* userscript
+* userscript (tested with ViolentMonkey)
 
 
 ## How to build
