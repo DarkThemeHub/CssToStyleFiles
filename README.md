@@ -35,6 +35,6 @@ description: "Theme Description"
 author: "Author Name"
 homepageUrl: "https://github.com/user/repo"
 supportUrl: "https://github.com/user/repo/issues"
-updateUrl: "https://raw.githubusercontent.com/user/repo/master/Generated/file.extension"
+updateUrl: "https://raw.githubusercontent.com/user/repo/master/Generated/themename.user.extension"
 urlRegex: "/^https?.*/"
 ```
