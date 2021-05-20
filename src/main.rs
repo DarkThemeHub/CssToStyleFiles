@@ -20,15 +20,7 @@ fn main() -> std::io::Result<()> {
                 .index(1)
                 .required(true)
                 .takes_value(true)
-                .help("Input css path"),
-        )
-        .arg(
-            Arg::with_name("Output")
-                .short("o")
-                .long("output")
-                .required(false)
-                .default_value("./Output")
-                .help("Overrides default output path"),
+                .help("Path to css file"),
         )
         .arg(
             Arg::with_name("Config")
@@ -36,7 +28,25 @@ fn main() -> std::io::Result<()> {
                 .long("config")
                 .index(2)
                 .required(true)
+                .takes_value(true)
                 .help("Path to config file"),
+        )
+        .arg(
+            Arg::with_name("Output")
+                .short("o")
+                .long("output")
+                .required(false)
+                .default_value("./Output")
+                .takes_value(true)
+                .help("Overrides default output path"),
+        )
+        .arg(
+            Arg::with_name("Release")
+                .short("r")
+                .long("release-version")
+                .required(false)
+                .takes_value(true)
+                .help("Overrides the use of version in config file"),
         )
         .get_matches();
 
@@ -69,7 +79,8 @@ fn main() -> std::io::Result<()> {
         String::from(config_content[0]["themeName"].as_str().unwrap().to_string());
     let namespace: String =
         String::from(config_content[0]["namespace"].as_str().unwrap().to_string());
-    let url_regex: String = String::from(config_content[0]["regex"].as_str().unwrap().to_string());
+    let url_regex: String =
+        String::from(config_content[0]["urlRegex"].as_str().unwrap().to_string());
     let description: String = String::from(
         config_content[0]["description"]
             .as_str()
@@ -94,12 +105,12 @@ fn main() -> std::io::Result<()> {
     let theme_css: String = input_css;
     let version: String;
 
-    match matches.value_of("version") {
+    match matches.value_of("Release") {
         Some(version_arg) => {
+            println!("Release version arg provided: {}", version_arg);
             version = version_arg.to_string();
         }
         None => {
-            println!("Version not provided as an argument, will use version from file");
             version = String::from(config_content[0]["version"].as_str().unwrap().to_string());
         }
     }
@@ -115,25 +126,25 @@ fn main() -> std::io::Result<()> {
     );
 
     create_dir_all(&output_path)?;
+    let filename = theme_name.replace("\t", "");
 
-    File::create(output_path.join(theme_name.replace("\t", "").to_owned() + ".user.styl"))?
-        .write_all(
-            templates::new::stylus(
-                theme_css.to_owned(),
-                theme_name.to_owned(),
-                namespace.to_owned(),
-                version.to_owned(),
-                description.to_owned(),
-                author.to_owned(),
-                homepage_url.to_owned(),
-                support_url.to_owned(),
-                update_url.to_owned(),
-                url_regex.to_owned(),
-            )
-            .as_bytes(),
-        )?;
+    File::create(output_path.join(filename.to_string() + ".user.styl"))?.write_all(
+        templates::new::stylus(
+            theme_css.to_owned(),
+            theme_name.to_owned(),
+            namespace.to_owned(),
+            version.to_owned(),
+            description.to_owned(),
+            author.to_owned(),
+            homepage_url.to_owned(),
+            support_url.to_owned(),
+            update_url.to_owned(),
+            url_regex.to_owned(),
+        )
+        .as_bytes(),
+    )?;
 
-    File::create(output_path.join(theme_name.replace("\t", "") + ".user.js"))?.write_all(
+    File::create(output_path.join(filename.to_string() + ".user.js"))?.write_all(
         templates::new::user_script(
             theme_css.to_owned(),
             theme_name.to_owned(),
