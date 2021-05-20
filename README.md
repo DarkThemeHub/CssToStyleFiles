@@ -25,7 +25,7 @@ ARGS:
     <Config>    Path to config file
 ```
 
-### config.yaml
+### Example config.yaml
 
 ```yaml
 themeName: "The Theme Name"
