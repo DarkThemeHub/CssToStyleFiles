@@ -2,6 +2,11 @@
 
 [![Rust](https://github.com/Snazzie/CssToStyleFiles/actions/workflows/rust.yml/badge.svg?branch=master)](https://github.com/Snazzie/CssToStyleFiles/actions/workflows/rust.yml)
 
+## Supported file outputs
+* stylus
+* userscript
+
+
 ## How to build
 
 `cargo run build --release`
