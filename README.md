@@ -24,3 +24,17 @@ ARGS:
     <Input>     Path to css file
     <Config>    Path to config file
 ```
+
+### config.yaml
+
+```yaml
+themeName: "The Theme Name"
+namespace: "github.com/user/repo"
+version: "1.0.0"
+description: "Theme Description"
+author: "Author Name"
+homepageUrl: "https://github.com/user/repo"
+supportUrl: "https://github.com/user/repo/issues"
+updateUrl: "https://raw.githubusercontent.com/user/repo/master/Generated/file.extension"
+urlRegex: "/^https?.*/"
+```
