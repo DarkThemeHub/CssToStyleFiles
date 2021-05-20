@@ -8,7 +8,7 @@
 
 ## Usage
 
-```yaml
+```
 USAGE:
     CssToStyleFiles.exe [OPTIONS] <Input> <Config>
 
